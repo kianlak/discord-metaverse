@@ -20,7 +20,7 @@ export async function shutdown(
   try {
     if (client) {
       await client.destroy();
-      logger.success(`Process successfully exiting`);
+      logger.success(`Shutdown successful`);
     }
   } catch (destroyError) {
     logger.error(`Error while destroying Discord client`, destroyError as Error);

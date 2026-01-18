@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import type { UserContext } from './UserContext.js';
 
-import { COMMANDS } from '../commands/commandRegistry.js';
+import { COMMANDS } from '../commands/constants/commandRegistry.js';
 
 export interface RequestContext {
   requestId: string;

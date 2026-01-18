@@ -1,5 +1,5 @@
 import type { RequestContext } from "../../../interfaces/RequestContext.js";
-import type { BegCommand } from "../types/beg.types.js";
+import type { BegCommand } from "../types/BegCommand.js";
 
 export function parseBeg(requestContext: RequestContext): BegCommand | null {
   const [...args] = requestContext.arguments;

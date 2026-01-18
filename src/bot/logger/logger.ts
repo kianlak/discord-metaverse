@@ -75,7 +75,7 @@ class Logger {
 
     this.log('SUCCESS', messageOrMetadata as string, {
       requestId: requestContextOrMessage.requestId,
-      username: requestContextOrMessage.user.username,
+      username: requestContextOrMessage.user.name,
       metadata,
     });
   }
@@ -94,7 +94,7 @@ class Logger {
 
     this.log('INFO', messageOrMetadata as string, {
       requestId: requestContextOrMessage.requestId,
-      username: requestContextOrMessage.user.username,
+      username: requestContextOrMessage.user.name,
       metadata,
     });
   }
@@ -113,7 +113,7 @@ class Logger {
 
     this.log('WARN', messageOrMetadata as string, {
       requestId: requestContextOrMessage.requestId,
-      username: requestContextOrMessage.user.username,
+      username: requestContextOrMessage.user.name,
       metadata,
     });
   }
@@ -143,7 +143,7 @@ class Logger {
 
     this.log('ERROR', messageOrError as string, {
       requestId: requestContextOrMessage.requestId,
-      username: requestContextOrMessage.user.username,
+      username: requestContextOrMessage.user.name,
       ...(maybeErrorOrMetadata instanceof Error && {
         error: maybeErrorOrMetadata,
       }),

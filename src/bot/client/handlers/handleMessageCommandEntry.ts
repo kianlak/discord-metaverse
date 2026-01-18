@@ -7,13 +7,12 @@ import { logger } from "../../logger/logger.js";
 import type { RequestContext } from "../../../interfaces/RequestContext.js";
 
 export async function handleMessageCommandEntry(message: Message) {
-  if (!shouldHandleMessage(message)) {
-    return;
-  }
+  if (!shouldHandleMessage(message)) return;
 
   const requestContext: RequestContext = requestContextFromMessage(message);
 
-  logger.info(requestContext, `User sent request "${requestContext.message.content}"`);
+  logger.info(requestContext, `Received "${requestContext.message.content}"`);
+
 
   // userBootstrap(userContextFromMessage(message));
   await commandRouter(requestContext);

@@ -1,12 +1,12 @@
 import { Message } from "discord.js";
 import { randomUUID } from "node:crypto";
 import { userContextFromMessage } from "./userContextFromMessage.js";
-import { processMessageCommand } from "../client/helpers/processMessageCommand.js";
+import { processRequestMessage } from "../client/helpers/processMessageCommand.js";
 
 import type { RequestContext } from "../../interfaces/RequestContext.js";
 
 export function requestContextFromMessage(message: Message): RequestContext {
-  const { commandName, commandArguments } = processMessageCommand(message);
+  const { commandName, commandArguments } = processRequestMessage(message);
 
   return {
     requestId: randomUUID(),

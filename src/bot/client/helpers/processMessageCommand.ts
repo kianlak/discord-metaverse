@@ -1,10 +1,10 @@
 import { Message } from "discord.js";
 
-import { COMMANDS } from "../../../commands/commandRegistry.js";
+import { COMMANDS } from "../../../commands/constants/commandRegistry.js";
 import { COMMAND_PREFIX } from "../../constants/COMMAND_PREFIX.js";
-import { COMMAND_ALIASES } from "../../../commands/commandAliases.js";
+import { COMMAND_ALIASES } from "../../../commands/constants/commandAliases.js";
 
-export function processMessageCommand(message: Message): {
+export function processRequestMessage(message: Message): {
   commandName: keyof typeof COMMANDS | null;
   commandArguments: string[];
 } {
