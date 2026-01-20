@@ -8,6 +8,7 @@ export interface RequestContext {
   requestId: string;
   user: UserContext;
   channelId: string;
+  channelName: string;
   guildId: string | undefined;
   message: Message;
   commandName: keyof typeof COMMANDS | null;

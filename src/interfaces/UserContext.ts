@@ -1,7 +1,8 @@
 export interface UserContext {
   id: string;
   name: string;
-  userAvatarURL: string | null;
-  userAvatarDecorationURL: string | null;
-  userBannerURL: string | null | undefined;
+  displayName: string;
+  avatarURL: string | null;
+  avatarDecorationURL: string | null;
+  bannerURL: string | null | undefined;
 }

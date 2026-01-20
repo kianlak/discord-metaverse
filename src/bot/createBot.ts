@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { createClient } from "./client/createClient.js";
 import { registerClientEvents } from './client/registerClientEvents.js';
 import { shutdown } from './helper/shutdown.js';
+import { initSqliteDB } from './infra/database/sqlite.js';
 import { logger } from './logger/logger.js';
 
 import { DISCORD_BOT_TOKEN } from '../config/index.js';
@@ -18,11 +19,11 @@ export async function createBot() {
     await client.login(DISCORD_BOT_TOKEN);
   
     client.once('clientReady', async () => {
-      // await bootstrapDatabase();
+      initSqliteDB();
       // await onReady(client);
     });
 
-    logger.success(`Bot created successfuly`);
+    logger.success(`Bot created successfully`);
   } catch(error) {
     logger.error(`Failed to start bot`, error as Error);
   }

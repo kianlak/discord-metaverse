@@ -12,6 +12,7 @@ export function requestContextFromMessage(message: Message): RequestContext {
     requestId: randomUUID(),
     user: userContextFromMessage(message),
     channelId: message.channelId,
+    channelName: message.channel.isDMBased() ? "DM" : message.channel.name,
     guildId: message.guildId ?? undefined,
     message,
     arguments: commandArguments,

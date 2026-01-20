@@ -1,0 +1,1 @@
+export const HEADSHOTS_BASE_PATH = './src/assets/images/headshots';

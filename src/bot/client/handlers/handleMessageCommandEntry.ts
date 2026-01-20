@@ -2,6 +2,8 @@ import { Message } from "discord.js";
 import { shouldHandleMessage } from "../helpers/shouldHandleMessage.js";
 import { requestContextFromMessage } from "../../helper/requestContextFromMessage.js";
 import { commandRouter } from "../../../commands/commandRouter.js";
+import { isUserEnsured } from "../../infra/ensuredUsers.js";
+import { userBootstrap } from "../../infra/bootstrap/userBootstrap.js";
 import { logger } from "../../logger/logger.js";
 
 import type { RequestContext } from "../../../interfaces/RequestContext.js";
@@ -11,9 +13,14 @@ export async function handleMessageCommandEntry(message: Message) {
 
   const requestContext: RequestContext = requestContextFromMessage(message);
 
-  logger.info(requestContext, `Received "${requestContext.message.content}"`);
+  logger.info(
+    requestContext, 
+    `Received "${requestContext.message.content}"`
+  );
 
+  const userId = requestContext.user.id;
 
-  // userBootstrap(userContextFromMessage(message));
+  if (!isUserEnsured(userId)) userBootstrap(requestContext);
+
   await commandRouter(requestContext);
 }

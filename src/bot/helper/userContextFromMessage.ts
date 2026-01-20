@@ -6,8 +6,9 @@ export function userContextFromMessage(message: Message): UserContext {
   return {
     id: message.author.id,
     name: message.author.username,
-    userAvatarURL: message.author.avatarURL(),
-    userAvatarDecorationURL: message.author.avatarDecorationURL(),
-    userBannerURL: message.author.bannerURL(),
+    displayName: message.author.displayName,
+    avatarURL: message.author.avatarURL(),
+    avatarDecorationURL: message.author.avatarDecorationURL(),
+    bannerURL: message.author.bannerURL(),
   };
 }

@@ -5,5 +5,6 @@ export interface CommandDefinition<TParsedCommand> {
   execute(command: TParsedCommand, requestContext: RequestContext): Promise<void>;
   usage: string;
   description: string;
+  allowedChannelIds?: string[];
   isPersistent: boolean;
 }

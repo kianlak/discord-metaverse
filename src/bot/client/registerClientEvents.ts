@@ -7,4 +7,6 @@ export function registerClientEvents(client: Client) {
 
   client.on('messageCreate', handleMessageCommandEntry);
   client.on('interactionCreate', () => {});
+
+  logger.success(`Listeners registered`);
 }

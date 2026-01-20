@@ -1,10 +1,12 @@
 import type { RequestContext } from '../../interfaces/RequestContext.js';
 
+import type { COMMANDS } from '../../commands/constants/commandRegistry.js';
+
 const liveRequests = new Map<string, RequestContext[]>();
 
 export function addLiveRequest(userId: string, requestContext: RequestContext): void {
   const existingLiveRequests = liveRequests.get(userId);
-
+  
   if (existingLiveRequests) {
     existingLiveRequests.push(requestContext);
   } else {
@@ -12,7 +14,12 @@ export function addLiveRequest(userId: string, requestContext: RequestContext): 
   }
 }
 
-export function removeLiveRequest(userId: string, commandName: string): void {
+export function removeLiveRequest(
+  userId: string, 
+  commandName: keyof typeof COMMANDS | null
+): void {
+  if (!commandName) return;
+
   const existingLiveRequests = liveRequests.get(userId);
   if (!existingLiveRequests) return;
 
