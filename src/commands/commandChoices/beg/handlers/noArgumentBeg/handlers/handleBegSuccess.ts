@@ -1,5 +1,8 @@
+import { AchievementService } from "../../../../../../core/Achievements/services/AchievementService.js";
+
 import { getSystemPersona } from "../../../../../../utils/getSystemPersona.js";
 import { dedupeAttachments } from "../../../../../../utils/dedupeAttachments.js";
+import { buildAchievementUnlockedEmbed } from "../../../../../../core/Achievements/ui/buildAchievementUnlockEmbed.js";
 import { buildThumbnailAttachments } from "../../../../../../utils/setThumbnailImageFromPath.js";
 import { buildBegSuccessEmbed } from "../../../ui/buildSuccessBegEmbed.js";
 import { logger } from "../../../../../../bot/logger/logger.js";
@@ -9,11 +12,15 @@ import type { BegCommandConfig } from "../../../interfaces/BegCommandConfig.js";
 import type { ThumbnailAttachable } from "../../../../../../interfaces/ThumbnailAttachable.js";
 import type { BegSuccessResult } from "../../../types/BegSuccessResult.js";
 
+import { ACHIEVEMENTS } from "../../../../../../core/Achievements/constants/ACHIEVEMENTS.js";
+
 export async function handleBegSuccess(
   requestContext: RequestContext,
   begCommandConfig: BegCommandConfig,
   begResult: BegSuccessResult
 ) {
+  const achievementService = new AchievementService();
+  
   const systemPersona = getSystemPersona();
 
   const attachments = dedupeAttachments([
@@ -33,14 +40,44 @@ export async function handleBegSuccess(
     files: attachments
   });
 
-
   logger.success(
     requestContext, 
     `"${requestContext.commandName}" successfully executed. Result:`, 
     {
       reward: begResult.reward,
-      rewardFromAchievement: begResult.rewardFromAchievement,
       newBalance: begResult.newBalance,
+      multiplier: begResult.multiplier,
     }
   );
+
+  const awarded = achievementService.evaluateAndAward(
+    requestContext.user.id,
+    'beg:success'
+  );
+
+  for (const award of awarded) {
+    const achievement = ACHIEVEMENTS.find(
+      a => a.id === award.achievementId
+    );
+
+    if (!achievement) continue;
+
+    await requestContext.message.reply({
+      embeds: [
+        buildAchievementUnlockedEmbed(
+          achievement.name,
+          award.tier,
+          award.tierDescription
+        ),
+      ],
+      files: [
+        `${achievement.badgeBasePath}/tier-${award.tier}.png`,
+      ],
+    });
+
+    logger.info(
+      requestContext, 
+      `User has achieved ${achievement.name} Tier ${award.tier}`
+    );
+  }
 }

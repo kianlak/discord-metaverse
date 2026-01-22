@@ -7,5 +7,5 @@ export type BegResult =
       type: 'SUCCESS';
       reward: number;
       newBalance: number;
-      rewardFromAchievement?: number;
+      multiplier: number;
     };

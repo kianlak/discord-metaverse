@@ -29,4 +29,28 @@ export class BegRepository {
 
     applyBegResultTransaction();
   }
+
+  getTotalBegs(discordId: string): number {
+    const row = this.db
+      .prepare(
+        `SELECT total_begs
+         FROM beg_stats
+         WHERE discord_id = ?`
+      )
+      .get(discordId) as { total_begs?: number };
+
+    return row?.total_begs ?? 0;
+  }
+
+  getTotalBegProfit(discordId: string): number {
+    const row = this.db
+      .prepare(
+        `SELECT total_profit
+         FROM beg_stats
+         WHERE discord_id = ?`
+      )
+      .get(discordId) as { total_profit?: number };
+
+    return row?.total_profit ?? 0;
+  }
 }
