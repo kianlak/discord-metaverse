@@ -19,7 +19,7 @@ export class AchievementService {
 
   getResolvedEffects(discordId: string): AchievementEffectInputs {
     const userTiers =
-      this.repo.getUserAchievementTiers(discordId);
+      this.repo.getUserAchievementTiersByDiscordId(discordId);
 
     return resolveAchievementEffects(userTiers);
   }
@@ -31,7 +31,7 @@ export class AchievementService {
     const awarded: AchievementAwardResult[] = [];
 
     const userTiers =
-      this.repo.getUserAchievementTiers(discordId);
+      this.repo.getUserAchievementTiersByDiscordId(discordId);
 
     const relevant = ACHIEVEMENTS.filter(a =>
       a.events.includes(event)
@@ -69,7 +69,7 @@ export class AchievementService {
       if (!reachedTier) continue;
 
       try {
-        this.repo.setUserAchievementTier(
+        this.repo.setUserAchievementTierByDiscordId(
           discordId,
           achievement.id,
           reachedTier.tier

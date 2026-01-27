@@ -17,7 +17,7 @@ export class BegRepository {
       this.db.prepare(USER_QUERIES.incrementBalehBucks)
         .run(reward, discordId);
 
-      this.db.prepare(BEG_QUERIES.incrementBegProfit)
+      this.db.prepare(BEG_QUERIES.incrementBegProfitByDiscordId)
         .run(reward, discordId);
 
       this.db.prepare(BEG_QUERIES.incrementTotalBegs)
@@ -30,25 +30,17 @@ export class BegRepository {
     applyBegResultTransaction();
   }
 
-  getTotalBegs(discordId: string): number {
+  getTotalBegsByDiscordId(discordId: string): number {
     const row = this.db
-      .prepare(
-        `SELECT total_begs
-         FROM beg_stats
-         WHERE discord_id = ?`
-      )
+      .prepare(BEG_QUERIES.getTotalBegsByDiscordId)
       .get(discordId) as { total_begs?: number };
 
     return row?.total_begs ?? 0;
   }
 
-  getTotalBegProfit(discordId: string): number {
+  getTotalBegProfitByDiscordId(discordId: string): number {
     const row = this.db
-      .prepare(
-        `SELECT total_profit
-         FROM beg_stats
-         WHERE discord_id = ?`
-      )
+      .prepare(BEG_QUERIES.getTotalProfitByDiscordId)
       .get(discordId) as { total_profit?: number };
 
     return row?.total_profit ?? 0;

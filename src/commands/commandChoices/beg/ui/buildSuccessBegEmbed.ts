@@ -1,8 +1,8 @@
 import { EmbedBuilder } from "discord.js";
 import { selectRandomPrompt } from "../../unknownCommand/utils/selectRandomPrompt.js";
-import { getSystemPersona } from "../../../../utils/getSystemPersona.js";
 
 import type { BegCommandConfig } from "../interfaces/BegCommandConfig.js";
+import { getSystemPersona } from "../../../../utils/getSystemPersona.js";
 import type { BegResult } from "../types/BegResult.js";
 
 export function buildBegSuccessEmbed(
@@ -39,6 +39,10 @@ export function buildBegSuccessEmbed(
     .setFooter({ text: `${systemPersona.footer}` })
     .setTimestamp();
 
+  if (systemPersona.thumbnailUrl) {
+    begResultEmbed.setThumbnail(systemPersona.thumbnailUrl);
+  }
+
   if (finalReward > 0) {
     begResultEmbed.addFields(
       {
@@ -61,17 +65,13 @@ export function buildBegSuccessEmbed(
     );
   }
 
-  if (systemPersona.thumbnailUrl) {
-    begResultEmbed.setThumbnail(systemPersona.thumbnailUrl);
-  }
-
   const channelResponseEmbed = new EmbedBuilder()
-    .setColor(0xff4d8d)
-    .setTitle(begCommandConfig.title)
-    .setDescription(`\`\`\`${selectedPrompt}\`\`\``)
-    .setFooter({ text: `${begCommandConfig.footer}` })
-    .setTimestamp();
-
+  .setColor(0xff4d8d)
+  .setTitle(begCommandConfig.title)
+  .setDescription(`\`\`\`${selectedPrompt}\`\`\``)
+  .setFooter({ text: `${begCommandConfig.footer}` })
+  .setTimestamp();
+  
   if (begCommandConfig.thumbnailUrl) {
     channelResponseEmbed.setThumbnail(begCommandConfig.thumbnailUrl);
   }

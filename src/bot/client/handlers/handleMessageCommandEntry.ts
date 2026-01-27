@@ -20,7 +20,7 @@ export async function handleMessageCommandEntry(message: Message) {
 
   const userId = requestContext.user.id;
 
-  if (!isUserEnsured(userId)) userBootstrap(requestContext);
+  if (!isUserEnsured(userId)) userBootstrap(requestContext.user);
 
   await commandRouter(requestContext);
 }

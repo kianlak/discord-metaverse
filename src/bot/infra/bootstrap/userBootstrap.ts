@@ -3,18 +3,18 @@ import { UserService } from "../../../core/User/services/UserService.js";
 import { addEnsuredUser, isUserEnsured } from "../ensuredUsers.js";
 import { logger } from "../../logger/logger.js";
 
-import type { RequestContext } from "../../../interfaces/RequestContext.js";
+import type { UserContext } from "../../../interfaces/UserContext.js";
 
-export function userBootstrap(requestContext: RequestContext) {
-  const userId = requestContext.user.id;
-  const username = requestContext.user.name;
+export function userBootstrap(user: UserContext) {
+  const userId = user.id;
+  const username = user.name;
 
   if (isUserEnsured(userId)) return;
 
   const userService = new UserService();
 
   try {
-    userService.ensureUserIsCreated(requestContext);
+    userService.ensureUserIsCreated(user);
       
     addEnsuredUser(userId);
 

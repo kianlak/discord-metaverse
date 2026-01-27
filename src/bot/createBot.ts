@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { createClient } from "./client/createClient.js";
 import { registerClientEvents } from './client/registerClientEvents.js';
+import { registerDiscordClient } from './client/registerDiscordClient.js';
 import { shutdown } from './helper/shutdown.js';
 import { initSqliteDB } from './infra/database/sqlite.js';
 import { logger } from './logger/logger.js';
@@ -13,6 +14,7 @@ export async function createBot() {
   logger.info(`Creating bot`);
 
   try {
+    registerDiscordClient(client);
     registerClientEvents(client);
     
     logger.info(`Bot client connecting to Discord`);

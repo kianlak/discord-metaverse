@@ -4,7 +4,7 @@ import { UserService } from "../../../../../core/User/services/UserService.js";
 import { resolveCommandConfigFromChannel } from "../../../../helpers/resolveCommandConfigFromChannel.js";
 import { handleBegCooldown } from "./handlers/handleBegCooldown.js";
 import { handleBegSuccess } from "./handlers/handleBegSuccess.js";
-import { getLiveRequestsFromUser, removeLiveRequest } from "../../../../../bot/infra/liveRequests.js";
+import { removeLiveRequest } from "../../../../../bot/infra/liveRequests.js";
 import { logger } from "../../../../../bot/logger/logger.js";
 
 import type { RequestContext } from "../../../../../interfaces/RequestContext.js";

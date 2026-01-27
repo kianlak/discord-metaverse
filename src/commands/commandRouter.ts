@@ -5,10 +5,12 @@ import { buildAllowedChannelsListEmbed } from './ui/buildAllowedChannelsListEmbe
 import { buildThumbnailAttachments } from '../utils/setThumbnailImageFromPath.js';
 import { buildCommandIsStillProcessingEmbed } from './ui/buildCommandIsStillProcessingEmbed.js';
 import { buildInvalidUsageEmbed } from './ui/buildInvalidUsageEmbed.js';
+import { getCommand } from './helpers/getComand.js';
 import { logger } from '../bot/logger/logger.js';
 
 import type { RequestContext } from '../interfaces/RequestContext.js';
 import type { ThumbnailAttachable } from '../interfaces/ThumbnailAttachable.js';
+import type { CommandMap } from './types/CommandMap.js';
 
 import { COMMAND_PREFIX } from '../bot/constants/COMMAND_PREFIX.js';
 import { COMMANDS } from './constants/commandRegistry.js';
@@ -126,12 +128,26 @@ export async function commandRouter(requestContext: RequestContext) {
 
     addLiveRequest(requestContext.user.id, requestContext);
 
+    const commandName = requestContext.commandName as keyof CommandMap;
+    const chosenCommand = getCommand(commandName);
     await chosenCommand.execute(chosenCommandForm, requestContext);
   } catch (error) {
     logger.error(
       requestContext, 
       `Command "${requestContext.commandName}" failed`, 
       error as Error
+    );
+
+    logger.info(
+      requestContext,
+      `Removing user ${requestContext.user.name}'s live request from set`,
+      { 
+        userId: requestContext.user.id,
+        requestId: requestContext.requestId,
+        channelName: requestContext.channelId,
+        commandName: requestContext.commandName,
+        arguments: requestContext.arguments
+      }
     );
 
     removeLiveRequest(requestContext.user.id, requestContext.commandName);

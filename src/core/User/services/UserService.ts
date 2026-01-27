@@ -2,7 +2,7 @@ import { UserRepository } from "../repository/UserRepository.js";
 
 import { logger } from "../../../bot/logger/logger.js";
 
-import type { RequestContext } from "../../../interfaces/RequestContext.js";
+import type { UserContext } from "../../../interfaces/UserContext.js";
 
 export class UserService {
   private readonly repo: UserRepository;
@@ -11,13 +11,12 @@ export class UserService {
     this.repo = repo ?? new UserRepository();
   }
   
-  ensureUserIsCreated(requestContext: RequestContext): boolean {
+  ensureUserIsCreated(user: UserContext): boolean {
     logger.info(
-      requestContext,
-      `Ensuring user is created`
+      `Ensuring user ${user.name} is created`
     );
 
-    return this.repo.ensureUserIsCreated(requestContext.user.id);
+    return this.repo.ensureUserIsCreated(user.id);
   }
 
   getLastBegAt(discordId: string): number {

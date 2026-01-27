@@ -38,7 +38,6 @@ export class BegService {
       reward += randomInt(range.min, range.max);
     } else {
       reward = getBegReward();
-      console.log(reward);
     }
 
     let multiplier = 1;
@@ -67,10 +66,10 @@ export class BegService {
   }
 
   getTotalBegs(discordId: string): number {
-    return this.repo.getTotalBegs(discordId);
+    return this.repo.getTotalBegsByDiscordId(discordId);
   }
 
   getTotalBegProfit(discordId: string): number {
-    return this.repo.getTotalBegProfit(discordId);
+    return this.repo.getTotalBegProfitByDiscordId(discordId);
   }
 }

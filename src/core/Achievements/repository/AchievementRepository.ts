@@ -5,7 +5,7 @@ import { ACHIEVEMENT_QUERIES } from "../queries/ACHIEVEMENT_QUERIES.js";
 export class AchievementRepository {
   private db = getDb();
 
-  getUserAchievementTiers(discordId: string): Record<string, number> {
+  getUserAchievementTiersByDiscordId(discordId: string): Record<string, number> {
     const rows = this.db
       .prepare(ACHIEVEMENT_QUERIES.getUserAchievementTiers)
       .all(discordId) as {
@@ -22,7 +22,7 @@ export class AchievementRepository {
     return result;
   }
 
-  setUserAchievementTier(
+  setUserAchievementTierByDiscordId(
     discordId: string,
     achievementId: string,
     tier: number
