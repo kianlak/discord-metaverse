@@ -1,15 +1,18 @@
 import { LeaderboardService } from "../../services/leaderboardService.js";
 
-import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { DiscordJsUserResolver } from "../../../../../utils/DiscordJsUserResolver.js";
 import { buildLeaderboardImage } from "../../ui/buildLeaderboardImage.js";
 import { hashLeaderboard } from "../../utils/hashLeaderboard.js";
 import { removeLiveRequest } from "../../../../../bot/infra/liveRequests.js";
 import { getCachedLeaderboardImage } from "../../utils/getCachedLeaderboardImage.js";
 import { setCachedLeaderboardImage } from "../../utils/setCachedLeaderboardImage.js";
+import { buildLeaderboardEmbed } from "../../ui/buildLeaderboardEmbed.js";
+import { dedupeAttachments } from "../../../../../utils/dedupeAttachments.js";
+import { buildThumbnailAttachments } from "../../../../../utils/setThumbnailImageFromPath.js";
+import { logger } from "../../../../../bot/logger/logger.js";
 
 import type { RequestContext } from "../../../../../interfaces/RequestContext.js";
-import { logger } from "../../../../../bot/logger/logger.js";
+import type { ThumbnailAttachable } from "../../../../../interfaces/ThumbnailAttachable.js";
 
 export async function handleNoArgumentsLeaderboard(requestContext: RequestContext) {
   const resolver = new DiscordJsUserResolver();
@@ -17,33 +20,57 @@ export async function handleNoArgumentsLeaderboard(requestContext: RequestContex
 
   const rawLeaderboardEntries = leaderboardService.getLeaderboardEntries(10);
 
+  const userRank =
+    rawLeaderboardEntries.findIndex(
+      entry => entry.discordId === requestContext.user.id
+    ) + 1;
+
+  const userEntry = rawLeaderboardEntries[userRank - 1];
+
   const hash = hashLeaderboard(rawLeaderboardEntries);
 
   let imageBuffer = getCachedLeaderboardImage(hash);
 
   if (!imageBuffer) {
-    logger.info(requestContext, `No image in cache found, generating new image`);
+    logger.info(
+      requestContext, 
+      `No image in cache found, generating new image`
+    );
+
     const leaderboardEntries = await leaderboardService.getBalehBucksLeaderboard(10);
 
     imageBuffer = await buildLeaderboardImage(leaderboardEntries);
 
-    logger.info(requestContext, `New image with hash of ${hash}, saved into cache`);
+    logger.info(
+      requestContext, 
+      `New image with hash of ${hash}, saved into cache`
+    );
+
     setCachedLeaderboardImage(hash, imageBuffer);
   }
 
-  const attachment = new AttachmentBuilder(imageBuffer, {
-    name: 'baleh-leaderboard.png',
-  });
+  const leaderboardEmbedContext = {
+    username: requestContext.user.name,
+    ...(userRank > 0 && { rank: userRank }),
+    ...(userEntry && { balehBucks: userEntry.balehBucks }),
+  };
 
-  const embed = new EmbedBuilder()
-    .setColor(0xfde047)
-    .setImage("attachment://baleh-leaderboard.png")
-    .setFooter({ text: "Kian Canes Metaverse Manager" })
-    .setTimestamp();
+  const {
+    embed,
+    leaderboardAttachment,
+    personaThumbnail,
+  } = buildLeaderboardEmbed(imageBuffer, leaderboardEmbedContext);
+
+  const attachments = dedupeAttachments([
+    leaderboardAttachment,
+    ...buildThumbnailAttachments(
+      personaThumbnail as ThumbnailAttachable
+    ),
+  ]);
 
   await requestContext.message.reply({
     embeds: [embed],
-    files: [attachment],
+    files: attachments,
   });
 
   logger.success(
