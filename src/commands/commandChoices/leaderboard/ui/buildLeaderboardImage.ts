@@ -76,7 +76,7 @@ export async function buildLeaderboardImage(
   ctx.drawImage(trophyIcon, PADDING, 24, 40, 40);
 
   ctx.fillStyle = COLORS.title;
-  ctx.font = 'bold 36px Sans';
+  ctx.font = 'bold 36px "DejaVu Sans"';
   ctx.fillText(
     'Baleh Bucks Leaderboard',
     PADDING + 56,
@@ -84,7 +84,7 @@ export async function buildLeaderboardImage(
   );
 
   ctx.fillStyle = COLORS.subtitle;
-  ctx.font = '16px Sans';
+  ctx.font = '16px "DejaVu Sans"';
   ctx.fillText(
     'Top earners in the Metaverse',
     PADDING,
@@ -120,7 +120,7 @@ export async function buildLeaderboardImage(
     ctx.restore();
 
     ctx.fillStyle = getRankColor(entry.rank);
-    ctx.font = 'bold 24px Sans';
+    ctx.font = 'bold 24px "DejaVu Sans"';
     ctx.fillText(`#${entry.rank}`, rowX + 20, y);
 
     const avatar = await loadImage(entry.avatarUrl);
@@ -147,7 +147,7 @@ export async function buildLeaderboardImage(
     ctx.restore();
 
     ctx.fillStyle = COLORS.text;
-    ctx.font = 'bold 20px Sans';
+    ctx.font = 'bold 20px "DejaVu Sans"';
     ctx.fillText(
       entry.username,
       avatarX + AVATAR_SIZE + 20,
@@ -156,7 +156,7 @@ export async function buildLeaderboardImage(
 
     const valueText = entry.balehBucks.toLocaleString();
 
-    ctx.font = 'bold 18px Sans';
+    ctx.font = 'bold 18px "DejaVu Sans"';
     const textW = ctx.measureText(valueText).width;
 
     const pillW = textW + 54;
