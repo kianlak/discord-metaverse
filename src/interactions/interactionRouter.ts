@@ -1,6 +1,7 @@
 import { helpInteractionRouter } from "../commands/commandChoices/help/interactions/helpInteractionRouter.js";
 
 import type { Interaction } from "discord.js";
+import { profileInteractionRouter } from "../commands/commandChoices/profile/interactions/profileInteractionsRouter.js";
 
 export async function interactionRouter(interaction: Interaction) {
   if (
@@ -18,6 +19,9 @@ export async function interactionRouter(interaction: Interaction) {
       await helpInteractionRouter(interaction);
       return;
 
+    case 'profile':
+      await profileInteractionRouter(interaction);
+      return;
 
     default:
       return;

@@ -1,6 +1,5 @@
 import { EmbedBuilder } from "discord.js";
 import { resolveCategories } from "../../helpers/resolveCategories.js";
-import { removeLiveRequest } from "../../../../../bot/infra/liveRequests.js";
 import { logger } from "../../../../../bot/logger/logger.js";
 
 import type { RequestContext } from "../../../../../interfaces/RequestContext.js";
@@ -52,17 +51,9 @@ export async function handleCommandInfoHelp(
     embeds: [embed],
   });
 
-  logger.info(
-    requestContext,
-    `Removing user ${requestContext.user.name}'s live request from set`,
-    { 
-      userId: requestContext.user.id,
-      requestId: requestContext.requestId,
-      channelName: requestContext.channelId,
-      commandName: requestContext.commandName,
-      arguments: requestContext.arguments
-    }
+  
+  logger.success(
+    requestContext, 
+    `"${requestContext.commandName}" successfully executed`
   );
-
-  removeLiveRequest(requestContext.user.id, requestContext.commandName);
 }

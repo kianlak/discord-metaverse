@@ -1,7 +1,5 @@
 import { EmbedBuilder } from 'discord.js';
 
-import type { Achievement } from '../interfaces/Achievement.js';
-
 export function buildAchievementUnlockedEmbed(
   achievementName: string,
   tier: number,
