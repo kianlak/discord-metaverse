@@ -14,10 +14,23 @@ export async function executeProfile(
   switch (command.form) {
     case 'NO_ARGUMENTS':
       targetUserId = requestContext.user.id;
+
+      logger.info(
+        requestContext, 
+        `Routing request of ${command.name} to form ${command.form}`
+      );
+
       break;
 
     case 'TARGET_USER':
       targetUserId = command.targetUserId;
+
+      logger.info(
+        requestContext, 
+        `Routing request of ${command.name} to form ${command.form} with payload`,
+        { commandName: command.targetUserId }
+      );
+
       break;
 
     default:
@@ -27,6 +40,18 @@ export async function executeProfile(
   await handleProfile(
     requestContext,
     targetUserId
+  );
+
+  logger.info(
+    requestContext,
+    `Removing user ${requestContext.user.name}'s live request from set`,
+    { 
+      userId: requestContext.user.id,
+      requestId: requestContext.requestId,
+      channelName: requestContext.channelId,
+      commandName: requestContext.commandName,
+      arguments: requestContext.arguments
+    }
   );
 
   removeLiveRequest(requestContext.user.id, requestContext.commandName);

@@ -28,7 +28,7 @@ export async function executeHelp(command: HelpCommand, requestContext: RequestC
     }
   }
 
-    logger.info(
+  logger.info(
     requestContext,
     `Removing user ${requestContext.user.name}'s live request from set`,
     { 

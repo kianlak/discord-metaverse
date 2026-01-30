@@ -3,6 +3,7 @@ import { buildProfileView } from "../../ui/buildProfileView.js";
 
 import type { RequestContext } from "../../../../../interfaces/RequestContext.js";
 import type { UserContext } from "../../../../../interfaces/UserContext.js";
+import { logger } from "../../../../../bot/logger/logger.js";
 
 export async function handleProfile(
   requestContext: RequestContext,
@@ -15,6 +16,7 @@ export async function handleProfile(
 
   if (targetUserId === viewerId) {
     targetUserContext = requestContext.user;
+
   } else {
     const user = await client.users.fetch(targetUserId);
 
@@ -36,4 +38,9 @@ export async function handleProfile(
   );
 
   await requestContext.message.reply(view);
+
+  logger.success(
+    requestContext, 
+    `"${requestContext.commandName}" successfully executed`
+  );
 }
