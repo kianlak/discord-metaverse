@@ -11,12 +11,20 @@ export function buildMainProfileEmbed(
   stats: MainProfileStats
 ) {
   const elapsed = Date.now() - stats.lastBegAt;
-  const remaining = BEG_COOLDOWN_MS - elapsed;
-  
-  const cooldown =
-    remaining <= 0
-      ? `Ready`
-      : `\`${msToDuration(remaining, "SECONDS")} seconds\``;
+
+  const timeRemainingInSeconds = msToDuration(BEG_COOLDOWN_MS - elapsed, 'SECONDS');
+  const minutes = Math.floor(timeRemainingInSeconds / 60);
+  const seconds = timeRemainingInSeconds % 60;
+
+  const minutesLabel =
+    minutes > 0 ? `${minutes} ${minutes === 1 ? "minute" : "minutes"}` : null;
+
+  const secondsLabel =
+    seconds > 0 ? `${seconds} ${seconds === 1 ? "second" : "seconds"}` : null;
+
+  const timeRemaining = [minutesLabel, secondsLabel]
+    .filter(Boolean)
+    .join(" ");
 
   return new EmbedBuilder()
     .setColor(0xf1c40f)
@@ -33,7 +41,7 @@ export function buildMainProfileEmbed(
       },
       {
         name: '⏳ Beg Cooldown',
-        value: cooldown,
+        value: `\`${BEG_COOLDOWN_MS - elapsed <= 0 ? `\`Ready\`` : timeRemaining}\``,
         inline: true,
       },
       {
