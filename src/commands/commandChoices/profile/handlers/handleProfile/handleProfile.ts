@@ -16,18 +16,22 @@ export async function handleProfile(
 
   if (targetUserId === viewerId) {
     targetUserContext = requestContext.user;
-
   } else {
-    const user = await client.users.fetch(targetUserId);
-
-    targetUserContext = {
-      id: user.id,
-      name: user.username,
-      displayName: user.displayName,
-      avatarURL: user.avatarURL(),
-      avatarDecorationURL: user.avatarDecorationURL(),
-      bannerURL: user.bannerURL(),
-    };
+    try {
+      const user = await client.users.fetch(targetUserId);
+  
+      targetUserContext = {
+        id: user.id,
+        name: user.username,
+        displayName: user.displayName,
+        avatarURL: user.avatarURL(),
+        avatarDecorationURL: user.avatarDecorationURL(),
+        bannerURL: user.bannerURL(),
+      };
+    } catch {
+      await requestContext.message.reply(`❌ Unknown command`);
+      return;
+    }
   }
 
   const view = buildProfileView(
