@@ -1,9 +1,15 @@
 import { getDiscordClient } from "../../../../../bot/client/registerDiscordClient.js";
 import { buildProfileView } from "../../ui/buildProfileView.js";
+import { buildInvalidUsageEmbed } from "../../../../ui/buildInvalidUsageEmbed.js";
+import { getSystemPersona } from "../../../../../utils/getSystemPersona.js";
+import { buildThumbnailAttachments } from "../../../../../utils/setThumbnailImageFromPath.js";
+import { logger } from "../../../../../bot/logger/logger.js";
 
 import type { RequestContext } from "../../../../../interfaces/RequestContext.js";
+import type { ThumbnailAttachable } from "../../../../../interfaces/ThumbnailAttachable.js";
 import type { UserContext } from "../../../../../interfaces/UserContext.js";
-import { logger } from "../../../../../bot/logger/logger.js";
+
+import { COMMANDS } from "../../../../constants/commandRegistry.js";
 
 export async function handleProfile(
   requestContext: RequestContext,
@@ -29,7 +35,24 @@ export async function handleProfile(
         bannerURL: user.bannerURL(),
       };
     } catch {
-      await requestContext.message.reply(`❌ Unknown command`);
+      if (!requestContext.commandName ) return;
+
+      const systemPersona = getSystemPersona();
+      const chosenCommand = COMMANDS[requestContext.commandName];
+      
+      await requestContext.message.reply({
+        embeds: [
+          buildInvalidUsageEmbed(
+            systemPersona, 
+            requestContext.commandName,
+            chosenCommand.usage
+          )
+        ],
+        files: buildThumbnailAttachments({
+          thumbnailUrl: systemPersona.thumbnailUrl,
+          thumbnailAssetPath: systemPersona.thumbnailAssetPath
+        } as ThumbnailAttachable),
+      });
       return;
     }
   }
