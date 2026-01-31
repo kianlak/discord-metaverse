@@ -36,8 +36,8 @@ export const COMMANDS: CommandMap = {
   profile: {
     parse: parseProfile,
     execute: executeProfile,
-    usage: '+profile or +p',
-    description: 'Check your profile statistics',
+    usage: '+profile or +p | +profile <discord_id>',
+    description: 'Check your profile statistics or another users',
     isPersistent: false,
     category: 'General',
     allowedChannelIds: Object.values(CHANNELS)
