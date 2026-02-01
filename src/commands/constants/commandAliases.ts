@@ -12,4 +12,7 @@ export const COMMAND_ALIASES: Record<string, CommandName> = {
 
   leaderboard: 'leaderboard',
   lb: 'leaderboard',
+
+  inventory: 'inventory',
+  in: 'inventory',
 };

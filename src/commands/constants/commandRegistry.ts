@@ -2,11 +2,13 @@ import { parseHelp } from "../commandChoices/help/helpers/parseHelp.js";
 import { parseBeg } from "../commandChoices/beg/helpers/parseBeg.js";
 import { parseProfile } from "../commandChoices/profile/helpers/parseProfile.js";
 import { parseLeaderboard } from "../commandChoices/leaderboard/helpers/parseLeaderboard.js";
+import { parseInventory } from "../commandChoices/inventory/helpers/parseInventory.js";
 
 import { executeHelp } from "../commandChoices/help/help.js";
 import { executeBeg } from "../commandChoices/beg/beg.js";
 import { executeProfile } from "../commandChoices/profile/profile.js";
 import { executeLeaderboard } from "../commandChoices/leaderboard/leaderboard.js";
+import { executeInventory } from "../commandChoices/inventory/inventory.js";
 
 import type { CommandMap } from "../types/CommandMap.js";
 
@@ -50,6 +52,16 @@ export const COMMANDS: CommandMap = {
     description: 'Check the leaderboards to see whose the top 10 richest in the server',
     isPersistent: false,
     category: 'Economy',
+    allowedChannelIds: Object.values(CHANNELS)
+  },
+
+  inventory: {
+    parse: parseInventory,
+    execute: executeInventory,
+    usage: '+inventory or +in | +inventory <discord_id>',
+    description: 'Check your inventory or another users',
+    isPersistent: false,
+    category: 'General',
     allowedChannelIds: Object.values(CHANNELS)
   },
 } as const;
