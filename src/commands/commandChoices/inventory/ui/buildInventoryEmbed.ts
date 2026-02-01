@@ -13,9 +13,9 @@ interface BuildInventoryEmbedInput {
 }
 
 const INVENTORY_TYPE_COLORS: Record<ItemType, number> = {
-  KEY:        0xFFD700,     // Gold / bright yellow-gold   ← special / important feel
-  CONSUMABLE: 0xFF4444,     // Vivid red / reddish-orange  ← potions, food, urgent use
-  MATERIAL:   0x4CAF50,     // Classic crafting green      ← almost every game uses this
+  KEY:        0xFFD700,
+  CONSUMABLE: 0xFF4444,
+  MATERIAL:   0x4CAF50,
 };
 
 const EMPTY_INVENTORY_COLOR = 0x95a5a6;
@@ -41,8 +41,8 @@ export function buildInventoryEmbed(
       .setColor(EMPTY_INVENTORY_COLOR)
       .setDescription(
         isSelf
-          ? "You don't have any items yet.\n\nStart earning items to fill this inventory ✨"
-          : "This user doesn't have any items yet."
+          ? '📭 **Your inventory is empty**\n\nEarn items to view them here'
+          : 'This user doesn\'t have any items yet'
       );
 
     return embed;
