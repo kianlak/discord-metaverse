@@ -25,20 +25,20 @@ const COLORS = {
 };
 
 function drawRoundedRect(
-  ctx: any,
+  context: any,
   x: number,
   y: number,
   w: number,
   h: number,
   r: number
 ) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
+  context.beginPath();
+  context.moveTo(x + r, y);
+  context.arcTo(x + w, y, x + w, y + h, r);
+  context.arcTo(x + w, y + h, x, y + h, r);
+  context.arcTo(x, y + h, x, y, r);
+  context.arcTo(x, y, x + w, y, r);
+  context.closePath();
 }
 
 function getRankColor(rank: number) {
@@ -58,44 +58,44 @@ export async function buildLeaderboardImage(
     PADDING;
 
   const canvas = createCanvas(WIDTH, height);
-  const ctx = canvas.getContext('2d');
+  const context = canvas.getContext('2d');
 
 
-  const bg = ctx.createLinearGradient(0, 0, 0, height);
+  const bg = context.createLinearGradient(0, 0, 0, height);
   bg.addColorStop(0, COLORS.bgTop);
   bg.addColorStop(1, COLORS.bgBottom);
 
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, WIDTH, height);
+  context.fillStyle = bg;
+  context.fillRect(0, 0, WIDTH, height);
 
 
   const trophyIcon = await loadImage(
     'src/assets/images/icons/trophy.png'
   );
 
-  ctx.drawImage(trophyIcon, PADDING, 24, 40, 40);
+  context.drawImage(trophyIcon, PADDING, 24, 40, 40);
 
-  ctx.fillStyle = COLORS.title;
-  ctx.font = 'bold 36px "DejaVu Sans"';
-  ctx.fillText(
+  context.fillStyle = COLORS.title;
+  context.font = 'bold 36px "DejaVu Sans"';
+  context.fillText(
     'Baleh Bucks Leaderboard',
     PADDING + 56,
     56
   );
 
-  ctx.fillStyle = COLORS.subtitle;
-  ctx.font = '16px "DejaVu Sans"';
-  ctx.fillText(
+  context.fillStyle = COLORS.subtitle;
+  context.font = '16px "DejaVu Sans"';
+  context.fillText(
     'Top earners in the Metaverse',
     PADDING,
     86
   );
 
-  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-  ctx.beginPath();
-  ctx.moveTo(PADDING, HEADER_HEIGHT - 16);
-  ctx.lineTo(WIDTH - PADDING, HEADER_HEIGHT - 16);
-  ctx.stroke();
+  context.strokeStyle = 'rgba(255,255,255,0.06)';
+  context.beginPath();
+  context.moveTo(PADDING, HEADER_HEIGHT - 16);
+  context.lineTo(WIDTH - PADDING, HEADER_HEIGHT - 16);
+  context.stroke();
 
   const coinIcon = await loadImage(
     'src/assets/images/icons/coin.png'
@@ -109,46 +109,46 @@ export async function buildLeaderboardImage(
     const rowW = WIDTH - PADDING * 2;
     const rowH = ROW_HEIGHT - 10;
 
-    ctx.save();
-    ctx.shadowColor = 'rgba(0,0,0,0.45)';
-    ctx.shadowBlur = 12;
-    ctx.shadowOffsetY = 5;
+    context.save();
+    context.shadowColor = 'rgba(0,0,0,0.45)';
+    context.shadowBlur = 12;
+    context.shadowOffsetY = 5;
 
-    ctx.fillStyle = COLORS.card;
-    drawRoundedRect(ctx, rowX, rowY, rowW, rowH, 18);
-    ctx.fill();
-    ctx.restore();
+    context.fillStyle = COLORS.card;
+    drawRoundedRect(context, rowX, rowY, rowW, rowH, 18);
+    context.fill();
+    context.restore();
 
-    ctx.fillStyle = getRankColor(entry.rank);
-    ctx.font = 'bold 24px "DejaVu Sans"';
-    ctx.fillText(`#${entry.rank}`, rowX + 20, y);
+    context.fillStyle = getRankColor(entry.rank);
+    context.font = 'bold 24px "DejaVu Sans"';
+    context.fillText(`#${entry.rank}`, rowX + 20, y);
 
     const avatar = await loadImage(entry.avatarUrl);
     const avatarX = rowX + 90;
     const avatarY = y - AVATAR_SIZE / 2;
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(
+    context.save();
+    context.beginPath();
+    context.arc(
       avatarX + AVATAR_SIZE / 2,
       avatarY + AVATAR_SIZE / 2,
       AVATAR_SIZE / 2,
       0,
       Math.PI * 2
     );
-    ctx.clip();
-    ctx.drawImage(
+    context.clip();
+    context.drawImage(
       avatar,
       avatarX,
       avatarY,
       AVATAR_SIZE,
       AVATAR_SIZE
     );
-    ctx.restore();
+    context.restore();
 
-    ctx.fillStyle = COLORS.text;
-    ctx.font = 'bold 20px "DejaVu Sans"';
-    ctx.fillText(
+    context.fillStyle = COLORS.text;
+    context.font = 'bold 20px "DejaVu Sans"';
+    context.fillText(
       entry.username,
       avatarX + AVATAR_SIZE + 20,
       y + 6
@@ -156,19 +156,19 @@ export async function buildLeaderboardImage(
 
     const valueText = entry.balehBucks.toLocaleString();
 
-    ctx.font = 'bold 18px "DejaVu Sans"';
-    const textW = ctx.measureText(valueText).width;
+    context.font = 'bold 18px "DejaVu Sans"';
+    const textW = context.measureText(valueText).width;
 
     const pillW = textW + 54;
     const pillH = 36;
     const pillX = WIDTH - PADDING - pillW - 16;
     const pillY = y - pillH / 2;
 
-    ctx.fillStyle = COLORS.greenBg;
-    drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 20);
-    ctx.fill();
+    context.fillStyle = COLORS.greenBg;
+    drawRoundedRect(context, pillX, pillY, pillW, pillH, 20);
+    context.fill();
 
-    ctx.drawImage(
+    context.drawImage(
       coinIcon,
       pillX + 12,
       pillY + 8,
@@ -176,8 +176,8 @@ export async function buildLeaderboardImage(
       20
     );
 
-    ctx.fillStyle = COLORS.green;
-    ctx.fillText(
+    context.fillStyle = COLORS.green;
+    context.fillText(
       valueText,
       pillX + 40,
       y + 6

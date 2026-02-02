@@ -4,6 +4,6 @@ import type { AchievementEffects } from "./AchievementEffect.js";
 export interface AchievementTier {
   tier: number;
   description: string;
-  check(ctx: AchievementContext): boolean;
+  check(achievementContext: AchievementContext): boolean;
   effects?: AchievementEffects;
 }

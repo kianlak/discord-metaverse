@@ -6,5 +6,5 @@ export interface Logger {
   warn(message: string, meta?: unknown): void;
   error(message: string, meta?: unknown): void;
 
-  withContext(ctx: RequestContext): ContextualLogger;
+  withContext(requestcontext: RequestContext): ContextualLogger;
 }

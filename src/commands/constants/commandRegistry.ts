@@ -3,12 +3,14 @@ import { parseBeg } from "../commandChoices/beg/helpers/parseBeg.js";
 import { parseProfile } from "../commandChoices/profile/helpers/parseProfile.js";
 import { parseLeaderboard } from "../commandChoices/leaderboard/helpers/parseLeaderboard.js";
 import { parseInventory } from "../commandChoices/inventory/helpers/parseInventory.js";
+import { parseUse } from "../commandChoices/use/helpers/parseUse.js";
 
 import { executeHelp } from "../commandChoices/help/help.js";
 import { executeBeg } from "../commandChoices/beg/beg.js";
 import { executeProfile } from "../commandChoices/profile/profile.js";
 import { executeLeaderboard } from "../commandChoices/leaderboard/leaderboard.js";
 import { executeInventory } from "../commandChoices/inventory/inventory.js";
+import { executeUse } from "../commandChoices/use/use.js";
 
 import type { CommandMap } from "../types/CommandMap.js";
 
@@ -60,6 +62,16 @@ export const COMMANDS: CommandMap = {
     execute: executeInventory,
     usage: '+inventory or +in | +inventory <discord_id>',
     description: 'Check your inventory or another users',
+    isPersistent: false,
+    category: 'General',
+    allowedChannelIds: Object.values(CHANNELS)
+  },
+
+  use: {
+    parse: parseUse,
+    execute: executeUse,
+    usage: '+use or +u | +use <item_id>',
+    description: 'Use items from your inventory',
     isPersistent: false,
     category: 'General',
     allowedChannelIds: Object.values(CHANNELS)

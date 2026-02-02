@@ -37,10 +37,10 @@ export class AchievementService {
       a.events.includes(event)
     );
 
-    let ctx: AchievementContext;
+    let achievementContext: AchievementContext;
     switch (event) {
       case "beg:success":
-        ctx = buildBegAchievementContext(discordId);
+        achievementContext = buildBegAchievementContext(discordId);
         break;
       default:
         return awarded;
@@ -58,7 +58,7 @@ export class AchievementService {
         | undefined;
 
       for (const tier of nextTiers) {
-        const passed = tier.check(ctx);
+        const passed = tier.check(achievementContext);
 
         if (passed) {
           reachedTier = tier;

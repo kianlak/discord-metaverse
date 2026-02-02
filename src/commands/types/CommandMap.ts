@@ -4,6 +4,7 @@ import type { BegCommand } from "../commandChoices/beg/types/BegCommand.js";
 import type { ProfileCommand } from "../commandChoices/profile/types/ProfileCommand.js";
 import type { LeaderboardCommand } from "../commandChoices/leaderboard/types/LeaderboardCommand.js";
 import type { InventoryCommand } from "../commandChoices/inventory/types/CommandDefinitionInventory.js";
+import type { UseCommand } from "../commandChoices/use/types/UseCommand.js";
 
 export type CommandMap = {
   help: CommandDefinition<HelpCommand>;
@@ -11,4 +12,5 @@ export type CommandMap = {
   profile: CommandDefinition<ProfileCommand>;
   leaderboard: CommandDefinition<LeaderboardCommand>;
   inventory: CommandDefinition<InventoryCommand>
+  use: CommandDefinition<UseCommand>
 };

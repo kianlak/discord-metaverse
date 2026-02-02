@@ -25,4 +25,20 @@ export class InventoryService {
       return item?.item_type === itemType;
     });
   }
+
+  getUserItemQuantity(discordId: string, itemId: string): number {
+    return this.repo.getUserItemQuantityByItemId(discordId, itemId);
+  }
+
+  decrementUserItem(discordId: string, itemId: string): void {
+    this.repo.decrementUserItem(discordId, itemId);
+  }
+
+  hasUsedItem(discordId: string, itemId: string): boolean {
+    return this.repo.hasUserUsedItemByItemId(discordId, itemId);
+  }
+
+  markItemUsed(discordId: string, itemId: string) {
+    this.repo.markUserItemUsedByItemId(discordId, itemId);
+  }
 }
