@@ -1,5 +1,6 @@
 import { removeLiveRequest } from "../../../bot/infra/liveRequests.js";
 import { handleInventory } from "./handlers/handleInventory.js";
+import { handleItemInfo } from "./handlers/handleItemInfo.js";
 import { logger } from "../../../bot/logger/logger.js";
 
 import type { RequestContext } from "../../../interfaces/RequestContext.js";
@@ -9,7 +10,8 @@ export async function executeInventory(
   command: InventoryCommand,
   requestContext: RequestContext
 ) {
-  let targetUserId: string;
+  let targetUserId: string = '';
+  let itemId: string = '';
 
   switch (command.form) {
     case 'NO_ARGUMENTS':
@@ -20,10 +22,16 @@ export async function executeInventory(
         `Routing request of ${command.name} to form ${command.form}`
       );
 
+      await handleInventory(
+        requestContext,
+        targetUserId,
+      );
+
       break;
 
     case 'TARGET_USER':
       targetUserId = command.targetUserId;
+      
 
       logger.info(
         requestContext, 
@@ -31,16 +39,32 @@ export async function executeInventory(
         { commandName: command.targetUserId }
       );
 
+      await handleInventory(
+        requestContext,
+        targetUserId,
+      );
+
+      break;
+
+    case 'ITEM_INFO':
+      itemId = command.itemId;
+
+      logger.info(
+        requestContext,
+        `Routing request of ${command.name} to form ${command.form} with payload`,
+        { commandName: command.itemId }
+      );
+
+      await handleItemInfo(
+        requestContext,
+        itemId,
+      );
+
       break;
 
     default:
       return;
   }
-
-  await handleInventory(
-    requestContext,
-    targetUserId
-  );
 
   logger.info(
     requestContext,

@@ -65,7 +65,7 @@ export async function handleInventory(
           arguments: requestContext.arguments 
         }
       );
-      
+
       return;
     }
   }

@@ -9,6 +9,7 @@ export interface ItemDefinition {
   description: string;
   item_type: ItemType;
   rarity: ItemRarity;
+  itemBasePath: string;
   sellable: boolean;
   buyable: boolean;
   tradable: boolean;

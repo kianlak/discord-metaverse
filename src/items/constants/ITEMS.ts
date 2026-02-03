@@ -6,6 +6,14 @@ import { buildThumbnailAttachments } from "../../utils/setThumbnailImageFromPath
 
 import type { ItemDefinition } from "../interfaces/ItemDefinition.js";
 
+const ITEM_BASE_PATHS = {
+  common: 'src/assets/images/items/common',
+  uncommon: 'src/assets/images/items/uncommon',
+  rare: 'src/assets/images/items/rare',
+  epic: 'src/assets/images/items/epic',
+  legendary: 'src/assets/images/items/legendary'
+}
+
 export const ITEMS: ItemDefinition[] = [
   {
     item_id: "ktcm1",
@@ -18,6 +26,7 @@ export const ITEMS: ItemDefinition[] = [
     buyable: false,
     tradable: false,
     oneTimeBuy: true,
+    itemBasePath: ITEM_BASE_PATHS.common,
 
     use: async () => { return true; },
   },
@@ -33,6 +42,7 @@ export const ITEMS: ItemDefinition[] = [
     buyable: false,
     tradable: false,
     oneTimeBuy: true,
+    itemBasePath: ITEM_BASE_PATHS.common,
 
     use: async () => { return true; },
   },
@@ -44,11 +54,13 @@ export const ITEMS: ItemDefinition[] = [
     value: 25,
     item_type: "CONSUMABLE",
     rarity: "COMMON",
-    sellable: false,
+    sellable: true,
+    sellPrice: 13,
     buyable: true,
     maxBuyableDaily: 3,
     tradable: false,
     oneTimeBuy: false,
+    itemBasePath: ITEM_BASE_PATHS.common,
 
     use: async ({ user, requestContext }) => {
       const systemPersona = getSystemPersona();
