@@ -8,8 +8,7 @@ import type { UserContext } from "../../../../interfaces/UserContext.js";
 export async function handleProfileCategorySelect(
   interaction: StringSelectMenuInteraction
 ) {
-  const [, , ownerId, targetUserId] =
-    interaction.customId.split(':');
+  const [, , ownerId, targetUserId] = interaction.customId.split(':');
 
   if (interaction.user.id !== ownerId) {
     await interaction.reply({

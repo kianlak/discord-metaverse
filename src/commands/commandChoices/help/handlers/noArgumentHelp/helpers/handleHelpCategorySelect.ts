@@ -5,7 +5,16 @@ import { logger } from "../../../../../../bot/logger/logger.js";
 import type { StringSelectMenuInteraction } from "discord.js";
 
 export async function handleHelpCategorySelect(interaction: StringSelectMenuInteraction) {
+  const [, , ownerId] = interaction.customId.split(':');
   const selectedCategory = interaction.values[0];
+
+  if (interaction.user.id !== ownerId) {
+    await interaction.reply({
+      content: `❌ You can't interact with someone else's profile`,
+      ephemeral: true,
+    });
+    return;
+  }
 
   if (selectedCategory) {
     const embed = buildHelpCategoryEmbed(selectedCategory);
