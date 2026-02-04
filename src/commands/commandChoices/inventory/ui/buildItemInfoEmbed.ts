@@ -25,7 +25,7 @@ export function buildItemInfoEmbed(item: ItemDefinition) {
       },
       {
         name: "✨ Rarity",
-        value: `\`item.rarity\``,
+        value: `\`${item.rarity}\``,
         inline: true,
       },
       {
