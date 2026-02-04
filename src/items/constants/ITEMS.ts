@@ -32,22 +32,6 @@ export const ITEMS: ItemDefinition[] = [
   },
 
   {
-    item_id: "test1",
-    item_name: "Thanos Casino Membership",
-    description: "Use to unlock Thanos Casino",
-    value: 1500,
-    item_type: "MATERIAL",
-    rarity: "COMMON",
-    sellable: false,
-    buyable: false,
-    tradable: false,
-    oneTimeBuy: true,
-    itemBasePath: ITEM_BASE_PATHS.common,
-
-    use: async () => { return true; },
-  },
-
-  {
     item_id: "cbp1",
     item_name: "Baleh Pouch",
     description: "Use to gain 1-50 coins from the pouch",

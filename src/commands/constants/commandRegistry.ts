@@ -60,8 +60,8 @@ export const COMMANDS: CommandMap = {
   inventory: {
     parse: parseInventory,
     execute: executeInventory,
-    usage: '+inventory or +in | +inventory <discord_id>',
-    description: 'Check your inventory or another users',
+    usage: '+inventory or +in | +inventory <discord_id> | +inventory <item_id>',
+    description: 'Check user inventory or information about an item',
     isPersistent: false,
     category: 'General',
     allowedChannelIds: Object.values(CHANNELS)
