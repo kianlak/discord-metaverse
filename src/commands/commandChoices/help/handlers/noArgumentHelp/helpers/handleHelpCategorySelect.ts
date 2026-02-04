@@ -10,7 +10,7 @@ export async function handleHelpCategorySelect(interaction: StringSelectMenuInte
 
   if (interaction.user.id !== ownerId) {
     await interaction.reply({
-      content: `❌ You can't interact with someone else's profile`,
+      content: `❌ You can't interact with someone else's help menu`,
       ephemeral: true,
     });
     return;
