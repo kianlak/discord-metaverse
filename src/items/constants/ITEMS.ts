@@ -48,9 +48,9 @@ export const ITEMS: ItemDefinition[] = [
 
     use: async ({ user, requestContext }) => {
       const systemPersona = getSystemPersona();
-      const { reward } = await balehPouch(user.id);
+      const { reward, newBalance } = await balehPouch(user.id);
 
-      const embed = buildBalehPouchEmbed(reward, systemPersona);
+      const embed = buildBalehPouchEmbed(reward, newBalance, systemPersona);
       await requestContext.message.reply({ 
         embeds: [embed], 
         files: buildThumbnailAttachments({
