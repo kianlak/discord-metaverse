@@ -10,8 +10,17 @@ const RARITY_COLORS: Record<string, number> = {
   LEGENDARY: 0xf1c40f,
 };
 
+const RARITY_FORMATTING: Record<string, string> = {
+  COMMON: 'Common',
+  UNCOMMON: 'Uncommon',
+  RARE: 'Rare',
+  EPIC: 'Epic',
+  LEGENDARY: 'Legendary',
+}
+
 export function buildItemInfoEmbed(item: ItemDefinition) {
   const color = RARITY_COLORS[item.rarity] ?? 0x7f8c8d;
+  const rarity = RARITY_FORMATTING[item.rarity] ?? 'Unknown';
 
   const embed = new EmbedBuilder()
     .setTitle(item.item_name)
@@ -25,7 +34,7 @@ export function buildItemInfoEmbed(item: ItemDefinition) {
       },
       {
         name: "✨ Rarity",
-        value: `\`${item.rarity}\``,
+        value: `\`${rarity}\``,
         inline: true,
       },
       {
