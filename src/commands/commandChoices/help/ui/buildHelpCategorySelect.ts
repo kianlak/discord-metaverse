@@ -5,12 +5,13 @@ import {
 import { resolveCategories } from "../helpers/resolveCategories.js";
 
 export function buildHelpCategorySelect(
-  selectedCategory: string
+  selectedCategory: string,
+  userId: string
 ) {
   const categories = resolveCategories();
 
   const select = new StringSelectMenuBuilder()
-    .setCustomId("help:select-category")
+    .setCustomId(`help:select-category:${userId}`)
     .setPlaceholder("Select a command category")
     .addOptions(
       categories.map(category => ({

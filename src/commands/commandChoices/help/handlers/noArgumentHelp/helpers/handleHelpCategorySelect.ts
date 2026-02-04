@@ -18,7 +18,7 @@ export async function handleHelpCategorySelect(interaction: StringSelectMenuInte
 
   if (selectedCategory) {
     const embed = buildHelpCategoryEmbed(selectedCategory);
-    const components = [buildHelpCategorySelect(selectedCategory)];
+    const components = [buildHelpCategorySelect(selectedCategory, ownerId)];
 
     logger.info(`[${interaction.user.username}] selected "${selectedCategory}" on Help Menu Dropdown`)
 

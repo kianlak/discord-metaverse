@@ -4,8 +4,10 @@ import type { Interaction } from "discord.js";
 
 export async function helpInteractionRouter(interaction: Interaction) {
   if (interaction.isStringSelectMenu()) {
-    switch (interaction.customId) {
-      case 'help:select-category':
+    const [, action] = interaction.customId.split(':');
+
+    switch (action) {
+      case 'select-category':
         await handleHelpCategorySelect(interaction);
         return;
     }

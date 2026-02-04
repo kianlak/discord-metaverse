@@ -13,7 +13,7 @@ export async function handleNoArgumentHelp(requestContext: RequestContext) {
   const embed = buildHelpCategoryEmbed(DEFAULT_CATEGORY);
 
   const components = [
-    buildHelpCategorySelect(DEFAULT_CATEGORY),
+    buildHelpCategorySelect(DEFAULT_CATEGORY, requestContext.user.id),
   ];
 
   await requestContext.message.reply({
