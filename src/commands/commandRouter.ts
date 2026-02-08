@@ -130,7 +130,6 @@ export async function commandRouter(requestContext: RequestContext) {
 
     const commandName = requestContext.commandName as keyof CommandMap;
     const chosenCommand = getCommand(commandName);
-    if (commandName === 'shop') return;
     await chosenCommand.execute(chosenCommandForm, requestContext);
   } catch (error) {
     logger.error(

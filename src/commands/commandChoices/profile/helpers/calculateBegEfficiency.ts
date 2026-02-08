@@ -39,7 +39,12 @@ export function calculateBegEfficiency(
 
     const { multiplier, upper, threshold } = tier;
 
-    const sub = Math.min(remaining, threshold);
+    const isLast = tier === tiers[tiers.length - 1];
+
+    const sub = isLast
+      ? remaining
+      : Math.min(remaining, threshold);
+      
     const mean = (1 + upper) / 2;
 
     avg += mean * multiplier * sub;
