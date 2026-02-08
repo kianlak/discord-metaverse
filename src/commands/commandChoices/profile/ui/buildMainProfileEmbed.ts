@@ -65,7 +65,7 @@ export function buildMainProfileEmbed(
         inline: false,
       },
       {
-        name: '📊 Beg Efficiency',
+        name: '🍀 Beg Luck',
         value: `\`${stats.begEfficiency.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
