@@ -26,4 +26,8 @@ export class UserService {
   getBalehBucks(discordId: string): number {
     return this.repo.getBalehBucksByDiscordId(discordId);
   }
+
+  decrementBalehBucks(discordId: string, reward: number) {
+    this.repo.decrementBalehBucks(discordId, reward);
+  }
 }

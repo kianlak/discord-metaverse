@@ -22,4 +22,16 @@ export const BEG_QUERIES = {
     FROM beg_stats
     WHERE discord_id = ?
   `,
+
+  setAchievementTierFourBegNumber: `
+    UPDATE beg_stats
+    SET tier_four_achieved_beg_number = ?
+    WHERE discord_id = ?
+  `,
+
+  getTierFourAchievedBegNumber: `
+    SELECT tier_four_achieved_beg_number
+    FROM beg_stats
+    WHERE discord_id = ?
+  `,
 } as const;

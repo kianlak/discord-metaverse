@@ -18,4 +18,7 @@ export const COMMAND_ALIASES: Record<string, CommandName> = {
 
   use: 'use',
   u: 'use',
+  
+  shop: 'shop',
+  s: 'shop',
 };

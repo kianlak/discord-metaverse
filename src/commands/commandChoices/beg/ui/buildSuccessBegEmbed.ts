@@ -66,11 +66,11 @@ export function buildBegSuccessEmbed(
   }
 
   const channelResponseEmbed = new EmbedBuilder()
-  .setColor(0xff4d8d)
-  .setTitle(begCommandConfig.title)
-  .setDescription(`\`\`\`${selectedPrompt}\`\`\``)
-  .setFooter({ text: `${begCommandConfig.footer}` })
-  .setTimestamp();
+    .setColor(0xff4d8d)
+    .setTitle(begCommandConfig.title)
+    .setDescription(`\`\`\`${selectedPrompt}\`\`\``)
+    .setFooter({ text: `${begCommandConfig.footer}` })
+    .setTimestamp();
   
   if (begCommandConfig.thumbnailUrl) {
     channelResponseEmbed.setThumbnail(begCommandConfig.thumbnailUrl);

@@ -7,6 +7,9 @@ export function buildBalehPouchEmbed(
   newBalance: number,
   systemPersona: ReturnType<typeof getSystemPersona>,
 ) {
+    const formatBalehBucks = (amount: number) =>
+    `${amount} Baleh ${amount === 1 ? "Buck" : "Bucks"}`;
+
   const embed = new EmbedBuilder()
     .setTitle("💰 Baleh Pouch Opened")
     .setColor(0x2ecc71)
@@ -16,12 +19,12 @@ export function buildBalehPouchEmbed(
     .addFields(
       {
         name: "💵 Baleh Bucks Gained",
-        value: `\`${reward} Baleh Bucks\``,
+        value: `\`${formatBalehBucks(reward)}\``,
         inline: true,
       },
       {
         name: "💰 New Balance",
-        value: `\`${newBalance} Baleh Bucks\``,
+        value: `\`${formatBalehBucks(newBalance)}\``,
         inline: true,
       }
     )

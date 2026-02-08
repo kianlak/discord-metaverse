@@ -1,6 +1,7 @@
-import type { AchievementContext } from "../../../../../core/Achievements/interfaces/AchievementContext.js";
 import { UserService } from "../../../../../core/User/services/UserService.js";
 import { BegService } from "../../services/BegService.js";
+
+import type { AchievementContext } from "../../../../../core/Achievements/interfaces/AchievementContext.js";
 
 export function buildBegAchievementContext(
   discordId: string

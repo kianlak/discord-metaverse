@@ -5,12 +5,14 @@ import type { ProfileCommand } from "../commandChoices/profile/types/ProfileComm
 import type { LeaderboardCommand } from "../commandChoices/leaderboard/types/LeaderboardCommand.js";
 import type { InventoryCommand } from "../commandChoices/inventory/types/CommandDefinitionInventory.js";
 import type { UseCommand } from "../commandChoices/use/types/UseCommand.js";
+import type { ShopCommand } from "../commandChoices/shop/types/ShopComand.js";
 
 export type CommandMap = {
   help: CommandDefinition<HelpCommand>;
   beg: CommandDefinition<BegCommand>;
   profile: CommandDefinition<ProfileCommand>;
   leaderboard: CommandDefinition<LeaderboardCommand>;
-  inventory: CommandDefinition<InventoryCommand>
-  use: CommandDefinition<UseCommand>
+  inventory: CommandDefinition<InventoryCommand>;
+  use: CommandDefinition<UseCommand>;
+  shop: CommandDefinition<ShopCommand>;
 };

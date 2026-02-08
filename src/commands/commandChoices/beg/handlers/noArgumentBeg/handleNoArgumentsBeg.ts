@@ -38,7 +38,7 @@ export async function handleBeg(requestContext: RequestContext) {
 
     case 'SUCCESS':
       await handleBegSuccess(
-        requestContext,
+        requestContext, 
         begCommandConfig,
         begResult
       );

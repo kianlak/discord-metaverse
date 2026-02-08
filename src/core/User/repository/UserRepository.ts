@@ -36,4 +36,10 @@ export class UserRepository {
 
     return row.baleh_bucks;
   }
+
+  decrementBalehBucks(discordId: string, reward: number) {
+    this.db
+      .prepare(USER_QUERIES.incrementBalehBucks)
+      .run(reward, discordId);
+  }
 }

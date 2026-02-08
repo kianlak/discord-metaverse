@@ -40,6 +40,17 @@ export class InventoryRepository {
     transaction();
   }
 
+  addUserItem(discordId: string, itemId: string, itemType: string, quantity: number): void {
+    this.db.prepare(
+      INVENTORY_QUERIES.addUserItemByItemId
+    ).run(
+      discordId,
+      itemId,
+      itemType,
+      quantity
+    );
+  }
+
   hasUserUsedItemByItemId(discordId: string, itemId: string): boolean {
     const stmt = this.db.prepare(INVENTORY_QUERIES.hasUserUsedItemByItemId);
     return Boolean(stmt.get(discordId, itemId));

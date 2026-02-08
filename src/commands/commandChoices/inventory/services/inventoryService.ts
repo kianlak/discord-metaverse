@@ -34,6 +34,10 @@ export class InventoryService {
     this.repo.decrementUserItem(discordId, itemId);
   }
 
+  addUserItem(discordId: string, itemId: string, itemType: string, quantity: number): void {
+    this.repo.addUserItem(discordId, itemId, itemType, quantity);
+  }
+
   hasUsedItem(discordId: string, itemId: string): boolean {
     return this.repo.hasUserUsedItemByItemId(discordId, itemId);
   }

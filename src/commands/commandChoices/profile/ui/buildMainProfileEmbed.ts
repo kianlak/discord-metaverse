@@ -59,6 +59,19 @@ export function buildMainProfileEmbed(
         value: `\`${stats.totalBegs.toLocaleString()}\``,
         inline: true,
       },
+            {
+        name: '',
+        value: '',
+        inline: false,
+      },
+      {
+        name: '📊 Beg Efficiency',
+        value: `\`${stats.begEfficiency.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}%\``,
+        inline: true,
+      },
     )
     .setFooter({ text: 'Kian Canes Metaverse Manager' })
     .setTimestamp();

@@ -8,7 +8,8 @@ export class ProfileRepository {
   private db = getDb();
 
   getUserMainStatsByDiscordId(
-    discordId: string
+    discordId: string,
+    percentile: number
   ): MainProfileStats {
     const row = this.db
       .prepare(PROFILE_QUERIES.getMainProfileStatsByDiscordId)
@@ -26,6 +27,7 @@ export class ProfileRepository {
       totalBegs: row?.total_begs ?? 0,
       totalBegProfit: row?.total_beg_profit ?? 0,
       lastBegAt: row?.last_beg_at ?? 0,
+      begEfficiency: percentile
     };
   }
 }

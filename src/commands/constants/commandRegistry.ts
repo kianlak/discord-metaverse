@@ -4,6 +4,7 @@ import { parseProfile } from "../commandChoices/profile/helpers/parseProfile.js"
 import { parseLeaderboard } from "../commandChoices/leaderboard/helpers/parseLeaderboard.js";
 import { parseInventory } from "../commandChoices/inventory/helpers/parseInventory.js";
 import { parseUse } from "../commandChoices/use/helpers/parseUse.js";
+import { parseShop } from "../commandChoices/shop/helpers/parseShop.js";
 
 import { executeHelp } from "../commandChoices/help/help.js";
 import { executeBeg } from "../commandChoices/beg/beg.js";
@@ -11,6 +12,7 @@ import { executeProfile } from "../commandChoices/profile/profile.js";
 import { executeLeaderboard } from "../commandChoices/leaderboard/leaderboard.js";
 import { executeInventory } from "../commandChoices/inventory/inventory.js";
 import { executeUse } from "../commandChoices/use/use.js";
+import { executeShop } from "../commandChoices/shop/shop.js";
 
 import type { CommandMap } from "../types/CommandMap.js";
 
@@ -20,7 +22,7 @@ export const COMMANDS: CommandMap = {
   help: {
     parse: parseHelp,
     execute: executeHelp,
-    usage: '+help or +h | +help <command_name>',
+    usage: '+help or +h → +help <command_name>',
     description: 'Get help for all commands or info on specific ones',
     isPersistent: false,
     category: 'General',
@@ -40,7 +42,7 @@ export const COMMANDS: CommandMap = {
   profile: {
     parse: parseProfile,
     execute: executeProfile,
-    usage: '+profile or +p | +profile <discord_id>',
+    usage: '+profile or +p → +profile <discord_id>',
     description: 'Check your profile statistics or another users',
     isPersistent: false,
     category: 'General',
@@ -60,7 +62,7 @@ export const COMMANDS: CommandMap = {
   inventory: {
     parse: parseInventory,
     execute: executeInventory,
-    usage: '+inventory or +in | +inventory <discord_id> | +inventory <item_id>',
+    usage: '+inventory or +in → +inventory <discord_id> | +inventory <item_id>',
     description: 'Check user inventory or information about an item',
     isPersistent: false,
     category: 'General',
@@ -70,11 +72,21 @@ export const COMMANDS: CommandMap = {
   use: {
     parse: parseUse,
     execute: executeUse,
-    usage: '+use or +u | +use <item_id>',
+    usage: '+use or +u → +use <item_id>',
     description: 'Use items from your inventory',
     isPersistent: false,
     category: 'General',
     allowedChannelIds: Object.values(CHANNELS)
+  },
+
+  shop: {
+    parse: parseShop,
+    execute: executeShop,
+    usage: '+shop or +s',
+    description: 'Buy or sell items at the shop',
+    isPersistent: true,
+    category: 'Economy',
+    allowedChannelIds: [CHANNELS.BOLBI_SHOP, CHANNELS.DEV_TEST]
   },
 } as const;
 

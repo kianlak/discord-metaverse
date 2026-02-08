@@ -72,4 +72,12 @@ export class BegService {
   getTotalBegProfit(discordId: string): number {
     return this.repo.getTotalBegProfitByDiscordId(discordId);
   }
+
+  setAchievementTierFourBegNumber(discordId: string, begNumber: number) {
+    this.repo.setAchievementTierFourBegNumber(discordId, begNumber);
+  }
+
+  getTierFourAchievedBegNumber(discordId: string): number | null {
+    return this.repo.getTierFourAchievedBegNumber(discordId);
+  }
 }

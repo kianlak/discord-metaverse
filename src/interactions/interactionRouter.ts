@@ -3,6 +3,7 @@ import { profileInteractionRouter } from "../commands/commandChoices/profile/int
 import { inventoryInteractionRouter } from "../commands/commandChoices/inventory/interactions/inventoryInteractionRouter.js";
 
 import type { Interaction } from "discord.js";
+import { shopInteractionRouter } from "../commands/commandChoices/shop/interactions/shopInteractionRouter.js";
 
 export async function interactionRouter(interaction: Interaction) {
   if (
@@ -26,6 +27,10 @@ export async function interactionRouter(interaction: Interaction) {
 
     case 'inventory':
       await inventoryInteractionRouter(interaction);
+      return;
+
+    case 'shop':
+      await shopInteractionRouter(interaction);
       return;
 
     default:

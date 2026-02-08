@@ -17,8 +17,6 @@ export interface ItemDefinition {
   value?: number;
   sellPrice?: number;
   maxBuyableDaily?: number;
-  maxBuyableWeekly?: number;
-  maxBuyableMonthly?: number;
 
   use: (context: {
     user: UserContext;

@@ -23,7 +23,7 @@ export const ITEMS: ItemDefinition[] = [
     item_type: "KEY",
     rarity: "COMMON",
     sellable: false,
-    buyable: false,
+    buyable: true,
     tradable: false,
     oneTimeBuy: true,
     itemBasePath: ITEM_BASE_PATHS.common,
@@ -34,7 +34,39 @@ export const ITEMS: ItemDefinition[] = [
   {
     item_id: "cbp1",
     item_name: "Baleh Pouch",
-    description: "Use to gain 1-50 coins from the pouch",
+    description: "Use to gain 1-50 baleh bucks",
+    value: 25,
+    item_type: "CONSUMABLE",
+    rarity: "COMMON",
+    sellable: true,
+    sellPrice: 13,
+    buyable: true,
+    maxBuyableDaily: 3,
+    tradable: false,
+    oneTimeBuy: false,
+    itemBasePath: ITEM_BASE_PATHS.common,
+
+    use: async ({ user, requestContext }) => {
+      const systemPersona = getSystemPersona();
+      const { reward, newBalance } = await balehPouch(user.id);
+
+      const embed = buildBalehPouchEmbed(reward, newBalance, systemPersona);
+      await requestContext.message.reply({ 
+        embeds: [embed], 
+        files: buildThumbnailAttachments({
+            thumbnailUrl: systemPersona.thumbnailUrl,
+            thumbnailAssetPath: systemPersona.thumbnailAssetPath,
+          } as ThumbnailAttachable),
+        });
+
+      return true;
+    },
+  },
+
+  {
+    item_id: "cbp2",
+    item_name: "Baleh Pouch",
+    description: "Use to gain 1-50 baleh bucks",
     value: 25,
     item_type: "CONSUMABLE",
     rarity: "COMMON",

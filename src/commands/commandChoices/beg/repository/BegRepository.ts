@@ -45,4 +45,16 @@ export class BegRepository {
 
     return row?.total_profit ?? 0;
   }
+
+  setAchievementTierFourBegNumber(discordId: string, begNumber: number) {
+    this.db.prepare(BEG_QUERIES.setAchievementTierFourBegNumber).run(begNumber, discordId);
+  }
+
+  getTierFourAchievedBegNumber(discordId: string): number | null {
+    const row = this.db
+      .prepare(BEG_QUERIES.getTierFourAchievedBegNumber)
+      .get(discordId) as { tier_four_achieved_beg_number?: number };
+
+    return row?.tier_four_achieved_beg_number ?? null;
+  }
 }

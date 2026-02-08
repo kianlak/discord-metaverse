@@ -66,6 +66,11 @@ export async function executeInventory(
       return;
   }
 
+  logger.success(
+    requestContext, 
+    `"${requestContext.commandName}" successfully executed`
+  );
+
   logger.info(
     requestContext,
     `Removing user ${requestContext.user.name}'s live request from set`,

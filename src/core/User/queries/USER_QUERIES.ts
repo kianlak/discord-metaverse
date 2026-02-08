@@ -24,6 +24,12 @@ export const USER_QUERIES = {
     WHERE discord_id = ?
   `,
 
+  decrementBalehBucks: `
+    UPDATE users
+    SET baleh_bucks = baleh_bucks - ?
+    WHERE discord_id = ?
+  `,
+
   updateLastBegAt: `
     UPDATE users
     SET last_beg_at = ?

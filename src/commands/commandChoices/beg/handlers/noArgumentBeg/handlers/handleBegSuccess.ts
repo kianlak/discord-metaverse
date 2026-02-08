@@ -13,6 +13,8 @@ import type { ThumbnailAttachable } from "../../../../../../interfaces/Thumbnail
 import type { BegSuccessResult } from "../../../types/BegSuccessResult.js";
 
 import { ACHIEVEMENTS } from "../../../../../../core/Achievements/constants/ACHIEVEMENTS.js";
+import { BegService } from "../../../services/BegService.js";
+import { UserService } from "../../../../../../core/User/services/UserService.js";
 
 export async function handleBegSuccess(
   requestContext: RequestContext,
@@ -61,6 +63,13 @@ export async function handleBegSuccess(
     );
 
     if (!achievement) continue;
+    
+    const userService = new UserService();
+    const begService = new BegService(userService);
+    const userId = requestContext.user.id;
+    const currBeg = begService.getTotalBegs(userId);
+    
+    if (award.tier === 4) begService.setAchievementTierFourBegNumber(userId, currBeg);
 
     await requestContext.message.reply({
       embeds: [
